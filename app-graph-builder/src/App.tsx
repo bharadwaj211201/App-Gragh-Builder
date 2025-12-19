@@ -15,10 +15,21 @@ export default function App() {
   const { data, isLoading } = useAppGraph(selectedAppId);
 
   useEffect(() => {
-    if (data) {
-      setNodes(data.nodes);
-      setEdges(data.edges);
-    }
+    if (!data) return;
+
+    const safeNodes = data.nodes.map((n: any) => ({
+      ...n,
+      type: n.type ?? "service",
+      position: n.position ?? { x: 0, y: 0 },
+    }));
+
+    setNodes([]);
+    setEdges([]);
+
+    requestAnimationFrame(() => {
+      setNodes(safeNodes);
+      setEdges(data.edges ?? []);
+    });
   }, [data, setNodes, setEdges]);
 
   return (

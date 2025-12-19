@@ -3,7 +3,7 @@ import { fetchAppGraph } from "../mocks/mockApi";
 
 export function useAppGraph(appId: string | null) {
   return useQuery({
-    queryKey: ["graph", appId],
+    queryKey: ["appgraph", appId],
     queryFn: () => fetchAppGraph(appId!),
     enabled: !!appId,
   });
