@@ -7,7 +7,7 @@ export async function fetchApps() {
   ];
 }
 
-export async function fetchGraph(appId: string) {
+export async function fetchAppGraph(appId: string) {
   if (appId === "app-1") {
     return {
       nodes: [
