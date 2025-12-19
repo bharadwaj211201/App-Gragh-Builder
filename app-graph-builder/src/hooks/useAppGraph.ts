@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchAppGraph } from "../api/apps";
+import { fetchAppGraph } from "../mocks/mockApi";
 
 export function useAppGraph(appId: string | null) {
   return useQuery({

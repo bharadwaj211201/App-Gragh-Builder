@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchApps } from "../api/apps";
+import { fetchApps } from "../mocks/mockApi";
 
 export function useApps() {
   return useQuery({
