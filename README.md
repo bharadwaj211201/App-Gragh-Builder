@@ -1,9 +1,3 @@
-# AppGraph-Builder
-Here’s a **clean, interview-ready `README.md`** you can directly copy-paste into your repo.
-It matches exactly what the task expects — **no fluff, clear engineering reasoning**.
-
----
-
 # App Graph Builder
 
 A small frontend application that visualizes application infrastructure as an interactive graph.
