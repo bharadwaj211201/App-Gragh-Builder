@@ -96,7 +96,7 @@ npm run typecheck  # Run TypeScript checks
 
 ---
 
-## 📌 Summary
+## Summary
 
 This project focuses on **correctness, clean architecture, and predictable state handling** rather than feature overload.
 The codebase is structured to be easily extendable with real APIs, persistence, and advanced graph features.
