@@ -107,8 +107,44 @@ export default function NodeInspector() {
 
       {/* ---------- Runtime Tab ---------- */}
       {activeTab === "runtime" && (
-        <div className="text-sm text-gray-400">
-          Runtime metrics coming soon…
+        <div className="space-y-4 text-sm">
+          {/* CPU */}
+          <div className="flex justify-between">
+            <span className="text-gray-400">CPU Usage</span>
+            <span className="font-medium">{cpu}%</span>
+          </div>
+
+          {/* Memory (mocked) */}
+          <div className="flex justify-between">
+            <span className="text-gray-400">Memory</span>
+            <span className="font-medium">
+              {Math.round(cpu * 0.8)} MB
+            </span>
+          </div>
+
+          {/* Status */}
+          <div className="flex justify-between">
+            <span className="text-gray-400">Status</span>
+            <span
+              className={
+                status === "Healthy"
+                  ? "text-green-400"
+                  : status === "Degraded"
+                  ? "text-yellow-400"
+                  : "text-red-400"
+              }
+            >
+              {status}
+            </span>
+          </div>
+
+          {/* Uptime (mocked) */}
+          <div className="flex justify-between">
+            <span className="text-gray-400">Uptime</span>
+            <span className="font-medium">
+              {Math.floor(cpu / 5) + 12} hrs
+            </span>
+          </div>
         </div>
       )}
     </div>

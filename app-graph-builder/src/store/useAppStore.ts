@@ -31,7 +31,7 @@ export const useAppStore = create<AppState>((set) => ({
     {
       id: "1",
       type: "service",
-      position: { x: 100, y: 100 },
+      position: { x: 200, y: 80 },
       data: {
         label: "Postgres",
         status: "Healthy",
@@ -41,7 +41,7 @@ export const useAppStore = create<AppState>((set) => ({
     {
       id: "2",
       type: "service",
-      position: { x: 350, y: 200 },
+      position: { x: 550, y: 220 },
       data: {
         label: "Redis",
         status: "Down",
@@ -51,7 +51,7 @@ export const useAppStore = create<AppState>((set) => ({
     {
       id: "3",
       type: "service",
-      position: { x: 200, y: 350 },
+      position: { x: 200, y: 360 },
       data: {
         label: "MongoDB",
         status: "Degraded",
