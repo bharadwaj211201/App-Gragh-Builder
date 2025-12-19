@@ -4,6 +4,13 @@ import { Slider } from "@/components/ui/slider";
 import { Input } from "@/components/ui/input";
 import { useAppStore } from "../../store/useAppStore";
 
+/* ---- Types ---- */
+type ServiceNodeData = {
+  label: string;
+  status: "Healthy" | "Degraded" | "Error";
+  cpu: number;
+};
+
 export default function NodeInspector() {
   const selectedNodeId = useAppStore((s) => s.selectedNodeId);
   const nodes = useAppStore((s) => s.nodes);
@@ -11,6 +18,7 @@ export default function NodeInspector() {
   const setTab = useAppStore((s) => s.setInspectorTab);
   const updateNodeData = useAppStore((s) => s.updateNodeData);
 
+  /* ---- No node selected ---- */
   if (!selectedNodeId) {
     return (
       <div className="p-4 text-gray-400">
@@ -22,11 +30,11 @@ export default function NodeInspector() {
   const node = nodes.find((n) => n.id === selectedNodeId);
   if (!node) return null;
 
-  const { label, status, cpu } = node.data;
+  const { label, status, cpu } = node.data as ServiceNodeData;
 
   return (
-    <div className="p-4 space-y-4">
-      {/* Status */}
+    <div className="p-4 space-y-5 text-white">
+      {/* ---------- Status Pill ---------- */}
       <Badge
         variant={
           status === "Healthy"
@@ -39,52 +47,70 @@ export default function NodeInspector() {
         {status}
       </Badge>
 
-      {/* Node Name */}
-      <Input
-        value={label}
-        onChange={(e) =>
-          updateNodeData(selectedNodeId, {
-            label: e.target.value,
-          })
-        }
-      />
+      {/* ---------- Node Name ---------- */}
+      <div className="space-y-1">
+        <label className="text-sm text-gray-400">Service Name</label>
+        <Input
+          value={label}
+          onChange={(e) =>
+            updateNodeData(selectedNodeId, {
+              label: e.target.value,
+            })
+          }
+        />
+      </div>
 
-      {/* Tabs */}
+      {/* ---------- Tabs ---------- */}
       <Tabs
-  value={activeTab}
-  onValueChange={(value) =>
-    setTab(value as "config" | "runtime")
-  }
->
-
-        <TabsList>
+        value={activeTab}
+        onValueChange={(value) =>
+          setTab(value as "config" | "runtime")
+        }
+      >
+        <TabsList className="grid grid-cols-2">
           <TabsTrigger value="config">Config</TabsTrigger>
           <TabsTrigger value="runtime">Runtime</TabsTrigger>
         </TabsList>
       </Tabs>
 
-      {/* Slider + Input */}
-      <div className="space-y-2">
-        <label className="text-sm">CPU Usage</label>
+      {/* ---------- Config Tab ---------- */}
+      {activeTab === "config" && (
+        <div className="space-y-3">
+          <label className="text-sm text-gray-400">
+            CPU Usage
+          </label>
 
-        <Slider
-          value={[cpu]}
-          max={100}
-          onValueChange={([v]) =>
-            updateNodeData(selectedNodeId, { cpu: v })
-          }
-        />
+          <Slider
+            value={[cpu]}
+            max={100}
+            onValueChange={([v]) =>
+              updateNodeData(selectedNodeId, { cpu: v })
+            }
+          />
 
-        <Input
-          type="number"
-          value={cpu}
-          onChange={(e) =>
-            updateNodeData(selectedNodeId, {
-              cpu: Number(e.target.value),
-            })
-          }
-        />
-      </div>
+          <Input
+            type="number"
+            min={0}
+            max={100}
+            value={cpu}
+            onChange={(e) =>
+              updateNodeData(selectedNodeId, {
+                cpu: Math.min(
+                  100,
+                  Math.max(0, Number(e.target.value))
+                ),
+              })
+            }
+          />
+        </div>
+      )}
+
+      {/* ---------- Runtime Tab ---------- */}
+      {activeTab === "runtime" && (
+        <div className="text-sm text-gray-400">
+          Runtime metrics coming soon…
+        </div>
+      )}
     </div>
   );
 }

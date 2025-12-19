@@ -1,16 +1,19 @@
+import { useAppStore } from "../../store/useAppStore";
+
 export default function TopBar() {
+  const setOpen = useAppStore((s) => s.setMobilePanelOpen);
+
   return (
-    <div className="h-12 flex items-center justify-between px-4 border-b bg-black text-white">
+    <div className="h-14 bg-black text-white flex items-center justify-between px-4 border-b">
       <div className="font-semibold">App Graph Builder</div>
 
-      <div className="flex gap-2">
-        <button className="px-2 py-1 text-sm border rounded">
-          Fit View
-        </button>
-        <button className="px-2 py-1 text-sm border rounded">
-          Settings
-        </button>
-      </div>
+      {/* Mobile button */}
+      <button
+        className="md:hidden text-sm px-3 py-1 border rounded"
+        onClick={() => setOpen(true)}
+      >
+        Inspect
+      </button>
     </div>
   );
 }

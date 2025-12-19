@@ -12,15 +12,25 @@ interface AppState {
   activeInspectorTab: InspectorTab;
 
   setNodes: (nodes: Node[]) => void;
+  setEdges: (edges: Edge[]) => void;
   setSelectedNodeId: (id: string | null) => void;
   setInspectorTab: (tab: InspectorTab) => void;
   updateNodeData: (id: string, data: any) => void;
+  deleteSelectedNode: () => void;
+
+  selectedAppId: string | null;
+  setSelectedAppId: (id: string) => void;
+
+  /* ✅ ADDED (mobile UI state) */
+  isMobilePanelOpen: boolean;
+  setMobilePanelOpen: (open: boolean) => void;
 }
 
 export const useAppStore = create<AppState>((set) => ({
   nodes: [
     {
       id: "1",
+      type: "service",
       position: { x: 100, y: 100 },
       data: {
         label: "Postgres",
@@ -30,6 +40,7 @@ export const useAppStore = create<AppState>((set) => ({
     },
     {
       id: "2",
+      type: "service",
       position: { x: 350, y: 200 },
       data: {
         label: "Redis",
@@ -39,6 +50,7 @@ export const useAppStore = create<AppState>((set) => ({
     },
     {
       id: "3",
+      type: "service",
       position: { x: 200, y: 350 },
       data: {
         label: "MongoDB",
@@ -57,8 +69,16 @@ export const useAppStore = create<AppState>((set) => ({
   activeInspectorTab: "config",
 
   setNodes: (nodes) => set({ nodes }),
+  setEdges: (edges) => set({ edges }),
   setSelectedNodeId: (id) => set({ selectedNodeId: id }),
   setInspectorTab: (tab) => set({ activeInspectorTab: tab }),
+
+  selectedAppId: null,
+  setSelectedAppId: (id) => set({ selectedAppId: id }),
+
+  /* ✅ ADDED (mobile panel state) */
+  isMobilePanelOpen: false,
+  setMobilePanelOpen: (open) => set({ isMobilePanelOpen: open }),
 
   updateNodeData: (id, newData) =>
     set((state) => ({
@@ -68,4 +88,19 @@ export const useAppStore = create<AppState>((set) => ({
           : node
       ),
     })),
+
+  deleteSelectedNode: () =>
+    set((state) => {
+      if (!state.selectedNodeId) return state;
+
+      const nodeId = state.selectedNodeId;
+
+      return {
+        nodes: state.nodes.filter((n) => n.id !== nodeId),
+        edges: state.edges.filter(
+          (e) => e.source !== nodeId && e.target !== nodeId
+        ),
+        selectedNodeId: null,
+      };
+    }),
 }));

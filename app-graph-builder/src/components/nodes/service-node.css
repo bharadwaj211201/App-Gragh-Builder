@@ -1,0 +1,80 @@
+.service-node {
+  width: 260px;
+  background: linear-gradient(180deg, #0c0c0c, #000);
+  border-radius: 14px;
+  padding: 12px;
+  color: white;
+  border: 1px solid #222;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  font-size: 12px;
+}
+
+.service-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.service-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+}
+
+.service-icon {
+  width: 24px;
+  height: 24px;
+  background: #111;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.service-tabs {
+  display: flex;
+  gap: 6px;
+  margin: 10px 0;
+}
+
+.service-tabs button {
+  flex: 1;
+  background: #111;
+  color: #aaa;
+  padding: 6px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+.service-tabs button.active {
+  background: #1f1f1f;
+  color: white;
+}
+
+.service-body {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.service-value {
+  width: 30px;
+  text-align: right;
+}
+
+.service-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.aws {
+  color: orange;
+  font-weight: bold;
+  font-size: 11px;
+}
+:hover {
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+}
